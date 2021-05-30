@@ -2,7 +2,7 @@ name: on-push # dsx rename
 
 on:
   workflow_dispatch:
-  # push:
+  push:
     # # Publish `$default-branch` as Docker `latest` image.
     # branches:
     #   - $default-branch

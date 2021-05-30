@@ -3,19 +3,19 @@ kind: Deployment
 metadata:
   name: eg-static-site-deployment-mum
   labels:
-    app: eg-static-site
+    app: eg-static-site-mum
 spec:
   selector:
     matchLabels:
-      app: eg-static-site
+      app: eg-static-site-mum
   replicas: 1
   template:
     metadata:
       labels:
-        app: eg-static-site
+        app: eg-static-site-mum
     spec:
       containers:
-      - name: eg-static-site # ???
+      - name: eg-static-site-mum # ???
         image: "replaced by deployment"
         resources:
           requests:

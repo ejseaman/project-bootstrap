@@ -24,6 +24,6 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: eg-static-site-service
+            name: eg-static-site-service-mum
             port:
               number: 80
