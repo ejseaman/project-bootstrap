@@ -1,9 +1,9 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: eg-static-site-ingress
+  name: eg-static-site-ingress-mum
   annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-prod
+    cert-manager.io/cluster-issuer: letsencrypt-staging
     # dsx investigate: It seems the self check was failing because requesting
     # http:// was upgraded to https:// and had no certificate yet.
     # that auto upgrade is good, but try find out what's causing it
@@ -14,7 +14,7 @@ spec:
   tls:
   - hosts:
     - replaced.by.deployment
-    secretName: eg-static-site-tls-secret
+    secretName: eg-static-site-tls-secret-mum
   ingressClassName: nginx
   rules:
   - host: replaced.by.deployment

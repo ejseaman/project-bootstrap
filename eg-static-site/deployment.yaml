@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: eg-static-site-deployment
+  name: eg-static-site-deployment-mum
   labels:
     app: eg-static-site
 spec:
