@@ -18,7 +18,7 @@ env:
   DSXWAT: dsx
   DOCKER_REGISTRY_URL_PREFIX: ghcr.io/${{ github.repository_owner }}
   KUBECONFIG: kube_config.yaml
-  DOMAIN: change.this.com
+  DOMAIN: mum.zk.io
 jobs:
   infrastructure:
     runs-on: ubuntu-latest
@@ -82,7 +82,7 @@ jobs:
         working-directory: ${{ matrix.folder }}
         # --docker-email=dsx@whatdo.dsx
         run: |
-          kubectl create secret docker-registry ghcr-docker \
+          kubectl create secret docker-registry ghcr-docker-mum \
             --docker-server=ghcr.io \
             --docker-username=${{ github.actor }} \
             --docker-password=${{ secrets.READ_PACKAGES_PAT }} \
