@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eg-todo-list-deployment
+  labels:
+    app: eg-todo-list
+spec:
+  selector:
+    matchLabels:
+      app: eg-todo-list
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: eg-todo-list
+    spec:
+      containers:
+      - name: eg-todo-list # ???
+        image: "replaced by deployment"
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+        ports:
+        - containerPort: 80
+      imagePullSecrets:
+      - name: ghcr-docker

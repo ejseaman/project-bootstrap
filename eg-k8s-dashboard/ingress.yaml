@@ -1,0 +1,27 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: eg-k8s-dashboard-ingress
+  namespace: kubernetes-dashboard
+  annotations:
+    nginx.org/ssl-services: "kubernetes-dashboard"
+    cert-manager.io/cluster-issuer: letsencrypt-prod # dsx remove
+    cert-manager.io/issue-temporary-certificate: "true" # dsx remove
+    acme.cert-manager.io/http01-edit-in-place: "true" # dsx remove
+spec:
+  tls:
+  - hosts:
+    - replaced.by.deployment
+    secretName: kubernetes-dashboard-tls-secret
+  ingressClassName: nginx
+  rules:
+  - host: replaced.by.deployment
+    http:
+      paths:
+      - path: "/"
+        pathType: Prefix
+        backend:
+          service:
+            name: kubernetes-dashboard
+            port:
+              number: 443

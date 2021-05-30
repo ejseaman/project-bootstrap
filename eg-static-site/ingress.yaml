@@ -1,0 +1,29 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: eg-static-site-ingress
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    # dsx investigate: It seems the self check was failing because requesting
+    # http:// was upgraded to https:// and had no certificate yet.
+    # that auto upgrade is good, but try find out what's causing it
+    cert-manager.io/issue-temporary-certificate: "true"
+    # dsx lets just try everything (https://cert-manager.io/docs/faq/acme/)
+    acme.cert-manager.io/http01-edit-in-place: "true"
+spec:
+  tls:
+  - hosts:
+    - replaced.by.deployment
+    secretName: eg-static-site-tls-secret
+  ingressClassName: nginx
+  rules:
+  - host: replaced.by.deployment
+    http:
+      paths:
+      - path: "/"
+        pathType: Prefix
+        backend:
+          service:
+            name: eg-static-site-service
+            port:
+              number: 80

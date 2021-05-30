@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+# Create a namespace and a service account for the Ingress controller:
+kubectl apply -f deployments/common/ns-and-sa.yaml
+
+# Create a cluster role and cluster role binding for the service account:
+kubectl apply -f deployments/rbac/rbac.yaml
+
+# Create a secret with a TLS certificate and a key for the default server in NGINX:
+kubectl apply -f deployments/common/default-server-secret.yaml
+
+# Create a config map for customizing NGINX configuration:
+kubectl apply -f deployments/common/nginx-config.yaml
+
+# Create an IngressClass resource (for Kubernetes >= 1.18):
+kubectl apply -f deployments/common/ingress-class.yaml
+
+# Create custom resource definitions for VirtualServer and VirtualServerRoute, TransportServer and Policy resources:
+kubectl apply -f deployments/common/crds/k8s.nginx.org_virtualservers.yaml
+kubectl apply -f deployments/common/crds/k8s.nginx.org_virtualserverroutes.yaml
+kubectl apply -f deployments/common/crds/k8s.nginx.org_transportservers.yaml
+kubectl apply -f deployments/common/crds/k8s.nginx.org_policies.yaml
+
+# Run the Ingress Controller
+# Use a DaemonSet: When you run the Ingress Controller by using a DaemonSet, Kubernetes will create an Ingress controller pod on every node of the cluster.
+kubectl apply -f deployments/daemon-set/nginx-ingress.yaml

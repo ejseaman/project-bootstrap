@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+SUBDOMAIN=dash.$DOMAIN
+
+kubectl apply -f recommended.yaml
+
+kubectl apply -f admin-account.yaml
+
+# dsx find out how bad it is to do this
+cat ingress.yaml \
+| yq w - "spec.tls[0].hosts[0]" $SUBDOMAIN \
+| yq w - "spec.rules[0].host" $SUBDOMAIN \
+| kubectl apply -f -
+
+
+# dsx oof don't log this
+# kubectl -n kubernetes-dashboard get secret $(kubectl -n kubernetes-dashboard get sa/admin-user -o jsonpath="{.secrets[0].name}") -o go-template="{{.data.token | base64decode}}"

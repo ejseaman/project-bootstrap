@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+SUBDOMAIN=rest.$DOMAIN
+
+IMAGE_NAME=eg-rest-server
+IMAGE_ID=$DOCKER_REGISTRY_URL_PREFIX/$IMAGE_NAME
+
+# Change all uppercase to lowercase
+IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
+# Strip git ref prefix from version
+IMAGE_TAG=$GITHUB_SHA
+
+
+cat deployment.yaml \
+| yq w - "spec.template.spec.containers[0].image" $IMAGE_ID:$IMAGE_TAG \
+| kubectl apply -f -
+
+cat service.yaml \
+| kubectl apply -f -
+
+cat ingress.yaml \
+| yq w - "spec.tls[0].hosts[0]" $SUBDOMAIN \
+| yq w - "spec.rules[0].host" $SUBDOMAIN \
+| kubectl apply -f -

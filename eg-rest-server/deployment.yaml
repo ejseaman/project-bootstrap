@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eg-rest-server-deployment
+  labels:
+    app: eg-rest-server
+spec:
+  selector:
+    matchLabels:
+      app: eg-rest-server
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: eg-rest-server
+    spec:
+      containers:
+      - name: eg-rest-server # ???
+        image: "replaced by deployment"
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+        ports:
+        - containerPort: 8080
+      imagePullSecrets:
+      - name: ghcr-docker

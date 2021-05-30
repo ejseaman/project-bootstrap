@@ -1,0 +1,35 @@
+* {
+  box-sizing: border-box;
+}
+html, body {
+  font-family: monospace;
+  background-color: #06060e;
+  color: #8a9;
+  border-color: #8a9;
+}
+
+input {
+  margin: 1px;
+  background-color: inherit;
+  color: inherit;
+  font-family: inherit;
+  border-color: #354;
+  border-width: 1px;
+}
+fieldset {
+  border-color: #8a9;
+}
+
+div, legend {
+  display: flex;
+  align-items: center;
+}
+span {
+  padding: 0px 8px;
+  border: solid 1px #354;
+  cursor: pointer;
+}
+span.complete {
+  color: #343;
+  /*text-decoration: line-through #343;*/
+}
